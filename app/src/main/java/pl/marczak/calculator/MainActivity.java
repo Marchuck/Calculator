@@ -1,4 +1,4 @@
-package pl.czerwieniec.bartek.calculator;
+package pl.marczak.calculator;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,12 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import pl.czerwieniec.bartek.calculator.calc.operations.Add;
-import pl.czerwieniec.bartek.calculator.calc.Calculator;
-import pl.czerwieniec.bartek.calculator.calc.operations.Divide;
-import pl.czerwieniec.bartek.calculator.calc.operations.Multiply;
-import pl.czerwieniec.bartek.calculator.calc.operations.Operation;
-import pl.czerwieniec.bartek.calculator.calc.operations.Substract;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         substractButton = (FloatingActionButton) findViewById(R.id.substract);
         result = (FloatingActionButton) findViewById(R.id.result);
         resetButton = (FloatingActionButton) findViewById(R.id.reset);
+
 
         //connect UI with business logic
         UIConnector connector = new UIConnector() {
@@ -82,28 +78,27 @@ public class MainActivity extends AppCompatActivity {
         divideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setCurrentOperation(new Divide());
+                input.setText(currentText() + "/");
             }
         });
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setCurrentOperation(new Add());
+                input.setText(currentText() + "+");
             }
         });
         multButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setCurrentOperation(new Multiply());
+                input.setText(currentText() + "*");
             }
         });
         substractButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setCurrentOperation(new Substract());
+                input.setText(currentText() + "-");
             }
         });
-
         //result listener
         result.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,20 +106,23 @@ public class MainActivity extends AppCompatActivity {
                 calculator.calculateValue(currentText());
             }
         });
+
+
+        Clicks.from(result).subscribe(new Consumer<Void>() {
+            @Override
+            public void accept(Void aVoid) throws Exception {
+                calculator.calculateValue(currentText());
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
+
     }
 
     String currentText() {
         return input.getText().toString();
-    }
-
-    public void setCurrentOperation(Operation currentOperation) {
-
-        String currentInput = currentText();
-
-        //calculator.setNumber(currentInput);
-        String newInput = currentInput +  currentOperation.operationSymbol();
-        input.setText(newInput);
-        //moves EditText cursor at the end of expression
-        input.setSelection(input.getText().length());
     }
 }

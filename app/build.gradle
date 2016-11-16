@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "24.0.3"
     defaultConfig {
-        applicationId "pl.czerwieniec.bartek.calculator"
+        applicationId "pl.marczak.calculator"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -29,4 +29,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile 'com.udojava:EvalEx:1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.0'
 }
