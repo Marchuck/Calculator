@@ -1,28 +1,29 @@
-sudo: required
-
+sudo: false
 language: android
-
 jdk: oraclejdk8
-
-env:
-  matrix:
-- ANDROID_TARGET=android-25  ANDROID_ABI=armeabi-v7a
 
 android:
   components:
-    - tools # to get the new `repository-11.xml`
-    - tools # see https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943)
+    - tools
     - platform-tools
-    - build-tools-25.0.0
+    - build-tools-25.0.1
     - android-25
-    - sys-img-armeabi-v7a-android-25
     - extra-android-m2repository
-before_script:
-  # Create and start emulator
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - adb wait-for-device
-  - adb shell input keyevent 82 &
+    - sys-img-armeabi-v7a-android-16
 
-script:
-   - ./gradlew build connectedAndroidTest
+before_script:
+  - echo no | android create avd --force -n test -t android-16 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - sleep 10
+  - adb shell input keyevent 82
+
+after_success:
+  - ./gradlew crashlyticsUploadDistributionDebug
+  - mkdir -p app/build/reports/jacoco/test/
+  - cp app/build/reports/coverage/debug/report.xml app/build/reports/jacoco/test/jacocoTestReport.xml
+- ./gradlew coveralls
+
+notifications:
+
+  slack:

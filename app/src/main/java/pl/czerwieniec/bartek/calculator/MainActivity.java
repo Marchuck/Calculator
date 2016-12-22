@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements UIConnector{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Fabric.with(this, new Crashlytics());
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         input = (EditText) findViewById(R.id.input_field);
