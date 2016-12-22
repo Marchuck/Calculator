@@ -27,7 +27,7 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
-     testCompile 'junit:junit:4.4'
+    testCompile 'junit:junit:4.4'
 
     compile 'com.udojava:EvalEx:1.0'
 }
