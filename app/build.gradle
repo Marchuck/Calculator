@@ -51,5 +51,6 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
+    compile 'com.android.support:design:25.0.0'
     compile 'com.udojava:EvalEx:1.0'
 }
