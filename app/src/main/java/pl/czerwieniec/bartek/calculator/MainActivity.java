@@ -16,7 +16,7 @@ import pl.czerwieniec.bartek.calculator.calc.operations.Multiply;
 import pl.czerwieniec.bartek.calculator.calc.operations.Operation;
 import pl.czerwieniec.bartek.calculator.calc.operations.Substract;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UIConnector{
 
     Calculator calculator;
     EditText input;
@@ -44,31 +44,7 @@ public class MainActivity extends AppCompatActivity {
         resetButton = (FloatingActionButton) findViewById(R.id.reset);
 
         //connect UI with business logic
-        UIConnector connector = new UIConnector() {
-
-            /**
-             * invoked when user divides by zero or other math error
-             * @param error
-             */
-            @Override
-            public void showError(String error) {
-                Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
-                vibrator.vibrate(300);
-            }
-
-            /**
-             *
-             * @param result of calculation
-             */
-            @Override
-            public void showResult(String result) {
-                input.setText(result);
-                //moves EditText cursor at the end of expression
-                input.setSelection(result.length());
-            }
-        };
-
-        calculator = new Calculator(connector);
+        calculator = new Calculator(this);
 
         //clear listener
         resetButton.setOnClickListener(new View.OnClickListener() {
@@ -126,5 +102,26 @@ public class MainActivity extends AppCompatActivity {
         input.setText(newInput);
         //moves EditText cursor at the end of expression
         input.setSelection(input.getText().length());
+    }
+
+    /**
+     * invoked when user divides by zero or other math error
+     * @param error
+     */
+    @Override
+    public void showError(String error) {
+        Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
+        vibrator.vibrate(300);
+    }
+
+    /**
+     *
+     * @param result of calculation
+     */
+    @Override
+    public void showResult(String result) {
+        input.setText(result);
+        //moves EditText cursor at the end of expression
+        input.setSelection(result.length());
     }
 }
