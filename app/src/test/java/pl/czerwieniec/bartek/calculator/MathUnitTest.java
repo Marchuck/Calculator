@@ -22,6 +22,6 @@ public class MathUnitTest {
 
     @Test
     public void division_isCorrect() throws Exception {
-        assertEquals(5, 10 / 2);
+        assertEquals(0, 10 / 2);
     }
 }
