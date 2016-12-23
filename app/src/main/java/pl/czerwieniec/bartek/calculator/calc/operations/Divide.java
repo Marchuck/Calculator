@@ -8,10 +8,13 @@ package pl.czerwieniec.bartek.calculator.calc.operations;
  */
 
 public class Divide implements Operation {
+
     @Override
     public String operationSymbol() {
         return "/";
-    }@Override
+    }
+
+    @Override
     public double operate(double number1, double number2) throws NumberFormatException {
         if (Double.compare(number2, 0) == 0) throw new NumberFormatException("Divide by zero!");
         return number1 / number2;

@@ -8,6 +8,9 @@ package pl.czerwieniec.bartek.calculator.calc.operations;
  */
 
 public interface Operation {
+
+    @Deprecated
     double operate(double number1, double number2);
+
     String operationSymbol();
 }

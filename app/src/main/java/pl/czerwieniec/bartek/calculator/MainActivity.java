@@ -9,6 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.fabric.sdk.android.Fabric;
 import pl.czerwieniec.bartek.calculator.calc.operations.Add;
 import pl.czerwieniec.bartek.calculator.calc.Calculator;
 import pl.czerwieniec.bartek.calculator.calc.operations.Divide;
@@ -16,77 +22,55 @@ import pl.czerwieniec.bartek.calculator.calc.operations.Multiply;
 import pl.czerwieniec.bartek.calculator.calc.operations.Operation;
 import pl.czerwieniec.bartek.calculator.calc.operations.Substract;
 
-public class MainActivity extends AppCompatActivity implements UIConnector{
+public class MainActivity extends AppCompatActivity implements UIConnector {
 
     Calculator calculator;
-    EditText input;
+
     Vibrator vibrator;
-    FloatingActionButton divideButton;
-    FloatingActionButton addButton;
-    FloatingActionButton multButton;
-    FloatingActionButton substractButton;
-    FloatingActionButton result;
-    FloatingActionButton resetButton;
+
+    @BindView(R.id.input_field)
+    EditText input;
+
+    @OnClick(R.id.divide)
+    void onDivide() {
+        setCurrentOperation(new Divide());
+    }
+
+    @OnClick(R.id.plus)
+    void onAdd() {
+        setCurrentOperation(new Add());
+    }
+
+    @OnClick(R.id.multiply)
+    void onMulitply() {
+        setCurrentOperation(new Multiply());
+    }
+
+    @OnClick(R.id.substract)
+    void onSubstract() {
+        setCurrentOperation(new Substract());
+    }
+
+    @OnClick(R.id.reset)
+    void onReset() {
+        if (calculator != null) calculator.clear();
+    }
+
+    @OnClick(R.id.result)
+    void onResult() {
+        if (calculator != null) calculator.calculateValue(currentText());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Fabric.with(this, new Crashlytics());
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        ButterKnife.bind(this);
 
-        input = (EditText) findViewById(R.id.input_field);
-        divideButton = (FloatingActionButton) findViewById(R.id.divide);
-        addButton = (FloatingActionButton) findViewById(R.id.plus);
-        multButton = (FloatingActionButton) findViewById(R.id.multiply);
-        substractButton = (FloatingActionButton) findViewById(R.id.substract);
-        result = (FloatingActionButton) findViewById(R.id.result);
-        resetButton = (FloatingActionButton) findViewById(R.id.reset);
-
-        //connect UI with business logic
         calculator = new Calculator(this);
-
-        //clear listener
-        resetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                calculator.clear();
-            }
-        });
-
-        //set Click listeners
-        divideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setCurrentOperation(new Divide());
-            }
-        });
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setCurrentOperation(new Add());
-            }
-        });
-        multButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setCurrentOperation(new Multiply());
-            }
-        });
-        substractButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setCurrentOperation(new Substract());
-            }
-        });
-
-        //result listener
-        result.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                calculator.calculateValue(currentText());
-            }
-        });
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     String currentText() {
@@ -96,32 +80,20 @@ public class MainActivity extends AppCompatActivity implements UIConnector{
     public void setCurrentOperation(Operation currentOperation) {
 
         String currentInput = currentText();
-
-        //calculator.setNumber(currentInput);
-        String newInput = currentInput +  currentOperation.operationSymbol();
+        String newInput = currentInput.concat(currentOperation.operationSymbol());
         input.setText(newInput);
-        //moves EditText cursor at the end of expression
         input.setSelection(input.getText().length());
     }
 
-    /**
-     * invoked when user divides by zero or other math error
-     * @param error
-     */
     @Override
     public void showError(String error) {
         Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
         vibrator.vibrate(300);
     }
 
-    /**
-     *
-     * @param result of calculation
-     */
     @Override
     public void showResult(String result) {
         input.setText(result);
-        //moves EditText cursor at the end of expression
         input.setSelection(result.length());
     }
 }
