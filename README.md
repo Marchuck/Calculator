@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Marchuck/Calculator.png?label=ready&title=Ready)](https://waffle.io/Marchuck/Calculator)
 # Calculator
 
 WAFFLE [![Stories in 
