@@ -1,4 +1,4 @@
-package pl.czerwieniec.bartek.calculator;
+package pl.marczak.calculator;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,7 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("pl.czerwieniec.bartek.calculator", appContext.getPackageName());
+        assertEquals("pl.marczak.calculator", appContext.getPackageName());
     }
 }
+
