@@ -7,7 +7,7 @@ android:
     - tools
     - platform-tools
     - tools
-    - build-tools-25.0.1
+    - build-tools-25.1.0
     - android-25
     - extra-android-m2repository
     - extra-google-m2repository
@@ -29,7 +29,7 @@ script:
 #  - mkdir -p app/build/reports/jacoco/test/
 #  - cp app/build/reports/coverage/debug/report.xml app/build/reports/jacoco/test/jacocoTestReport.xml
 #  - ./gradlew coveralls
-after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
+after_failure: "cat pwd"
 #notifications:
 #
 #  slack:
