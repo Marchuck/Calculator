@@ -1,4 +1,4 @@
-package pl.marczak.calculator;
+package pl.marczak.calculator.model;
 
 import com.udojava.evalex.Expression;
 
@@ -23,8 +23,8 @@ public class BusinessLogic {
         }
     }
 
-    public static Result getResult(String expression) {
-
+    public static Result getResult(CharSequence _expression) {
+        String expression = _expression.toString();
         if (expression.isEmpty()) {
             return new Result(false, "Podaj wyrażenie do obliczenia!");
         }

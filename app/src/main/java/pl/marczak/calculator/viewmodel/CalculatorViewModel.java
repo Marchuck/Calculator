@@ -8,7 +8,7 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
-import pl.marczak.calculator.BusinessLogic;
+import pl.marczak.calculator.model.BusinessLogic;
 
 import static pl.marczak.calculator.RxUtils.toObservable;
 

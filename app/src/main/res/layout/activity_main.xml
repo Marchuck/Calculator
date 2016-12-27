@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-        <variable
-            name="viewModel"
-            type="pl.marczak.calculator.viewmodel.CalculatorViewModel" />
-    </data>
-
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:fitsSystemWindows="true">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true">
 
         <pl.marczak.calculator.view.RxEditText
             android:id="@+id/input_field"
@@ -38,7 +28,7 @@
                 android:id="@+id/reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.clear()}"
+
                 android:src="@drawable/letter_c" />
 
             <android.support.design.widget.FloatingActionButton
@@ -48,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/result"
                 android:layout_toStartOf="@+id/result"
-                android:onClick="@{() -> viewModel.substract()}"
                 android:src="@drawable/minus" />
 
             <android.support.design.widget.FloatingActionButton
@@ -57,28 +46,26 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/plus"
                 android:layout_toStartOf="@+id/plus"
-                android:onClick="@{() -> viewModel.multiply()}"
                 android:src="@drawable/multiplication" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/divide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.divide()}"
+
                 android:src="@drawable/division" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.add()}"
+
                 android:src="@drawable/plus" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.getResult()}"
                 android:src="@drawable/equal" />
 
 
@@ -91,10 +78,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:padding="30sp"
-            android:text="@{viewModel.currentMessage}"
             android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 
     </RelativeLayout>
 
-</layout>
