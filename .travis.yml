@@ -15,7 +15,7 @@ android:
 
 before_script:
   - echo  '8933bad161af4178b1185d1a37fbf41ea5269c55' > android-sdk-license
-  - accept-licenses "android update sdk --no-ui --all --filter build-tools" "android-sdk-license-5be876d5|mips-android-sysimage-license-15de68cc"
+ # - accept-licenses "android update sdk --no-ui --all --filter build-tools" "android-sdk-license-5be876d5|mips-android-sysimage-license-15de68cc"
   - echo no | android create avd --force -n test -t android-16 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
