@@ -22,7 +22,7 @@ before_script:
 script: ./gradlew connectedAndroidTest
 
 script:
-   - ./gradlew build connectedCheck
+   - ./gradlew build connectedCheck --stacktrace --debug --info
 #after_success:
 #  - ./gradlew crashlyticsUploadDistributionDebug
 #  - mkdir -p app/build/reports/jacoco/test/
