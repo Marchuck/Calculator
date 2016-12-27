@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+
 import io.reactivex.Observable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
@@ -28,7 +29,7 @@ public class CalculatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         injectViews();
-        Observable.zip(getResultSubject, input_field.asObservable(),
+        Observable.combineLatest(getResultSubject, input_field.asObservable(),
                 new BiFunction<Boolean, CharSequence, Boolean>() {
                     @Override
                     public Boolean apply(Boolean wantResults, CharSequence currentInput) throws Exception {
@@ -102,6 +103,9 @@ public class CalculatorActivity extends AppCompatActivity {
         currentMessage = (TextView) findViewById(R.id.currentMessage);
 
     }
+
+
+
 
 
 }
