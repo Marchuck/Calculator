@@ -15,8 +15,12 @@ android:
 
 before_script:
 
- # - accept-licenses "android update sdk --no-ui --all --filter build-tools" "android-sdk-license-5be876d5|mips-android-sysimage-license-15de68cc"
-  - android update sdk --no-ui --filter build-tools-24.0.3,android-25,extra-android-m2repository
+  - ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --no-ui --all --filter build-tools-25.0.1,android-25,extra-android-m2repository
+# Build Tools 24.0.1
+#  - ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --no-ui --all --filter build-tools-24.0.1,android-24,extra-android-m2repository
+# Build Tools 23.0.1
+#  - ( while [ 1 ]; do sleep 5; echo y; done ) | android update sdk --no-ui --all --filter build-tools-23.0.1,android-23,extra-android-m2repository
+
   - echo no | android create avd --force -n test -t android-16 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
