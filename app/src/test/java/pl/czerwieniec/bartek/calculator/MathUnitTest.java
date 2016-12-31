@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class MathUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(12, 10 + 2);
+        assertEquals(1, 10 + 2);
         System.out.println("addition_isCorrect");
     }
 
