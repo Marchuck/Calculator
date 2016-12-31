@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 language: android
 jdk: oraclejdk8
 
@@ -9,7 +9,17 @@ android:
     - build-tools-25.0.1
     - android-25
     - extra-android-m2repository
+    - extra-google-m2repository
     - sys-img-armeabi-v7a-android-16
+
+
+branches:
+  except:
+  - rx
+  - master
+branches:
+  only:
+  - rx_combine
 
 before_script:
   - echo no | android create avd --force -n test -t android-16 --abi armeabi-v7a
@@ -18,12 +28,25 @@ before_script:
   - sleep 10
   - adb shell input keyevent 82
 
-after_success:
-  - ./gradlew crashlyticsUploadDistributionDebug
-  - mkdir -p app/build/reports/jacoco/test/
-  - cp app/build/reports/coverage/debug/report.xml app/build/reports/jacoco/test/jacocoTestReport.xml
-  - ./gradlew coveralls
-
+script:
+   - ./gradlew connectedAndroidTest
+   - ./gradlew build connectedCheck
+#after_success:
+#  - ./gradlew crashlyticsUploadDistributionDebug
+#  - mkdir -p app/build/reports/jacoco/test/
+#  - cp app/build/reports/coverage/debug/report.xml app/build/reports/jacoco/test/jacocoTestReport.xml
+#  - ./gradlew coveralls
 after_failure:
-    - "pwd"
-    - "ls -la"
+ - "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
+ - "git branch"
+#notifications:
+#
+#  slack:
+notifications:
+  slack: next42team:gjNbep7op84RBU00BCLROfdG
+
+  email:
+    recipients:
+      - lukmar993@gmail.com
+    on_success: always
+    on_failure: always
