@@ -13,15 +13,18 @@ public class MathUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(12, 10 + 2);
+        System.out.println("addition_isCorrect");
     }
 
     @Test
     public void multiplication_isCorrect() throws Exception {
         assertEquals(20, 10 * 2);
+        System.out.println("multiplication_isCorrect");
     }
 
     @Test
     public void division_isCorrect() throws Exception {
         assertEquals(0, 0 / 2);
+        System.out.println("division_isCorrect");
     }
 }
