@@ -14,11 +14,10 @@ android:
 
 
 branches:
+  only:
+  - master
   except:
   - rx
-  - master
-branches:
-  only:
   - rx_combine
 
 before_script:
