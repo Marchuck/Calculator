@@ -16,9 +16,9 @@ android:
 branches:
   except:
   - rx
+  - master
 branches:
   only:
-  - master
   - rx_combine
 
 before_script:
