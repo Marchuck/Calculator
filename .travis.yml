@@ -42,3 +42,11 @@ after_failure:
 #notifications:
 #
 #  slack:
+notifications:
+  slack: next42team:gjNbep7op84RBU00BCLROfdG
+
+  email:
+    recipients:
+      - lukmar993@gmail.com
+    on_success: always
+    on_failure: always
