@@ -1,4 +1,4 @@
-package pl.czerwieniec.bartek.calculator.calc;
+package pl.marczak.calculator.calc;
 
 /**
  * Project "Calculator"

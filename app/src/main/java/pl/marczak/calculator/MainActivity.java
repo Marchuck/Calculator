@@ -1,12 +1,11 @@
-package pl.czerwieniec.bartek.calculator;
+package pl.marczak.calculator;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -15,18 +14,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.fabric.sdk.android.Fabric;
-import pl.czerwieniec.bartek.calculator.calc.operations.Add;
-import pl.czerwieniec.bartek.calculator.calc.Calculator;
-import pl.czerwieniec.bartek.calculator.calc.operations.Divide;
-import pl.czerwieniec.bartek.calculator.calc.operations.Multiply;
-import pl.czerwieniec.bartek.calculator.calc.operations.Operation;
-import pl.czerwieniec.bartek.calculator.calc.operations.Substract;
+import pl.czerwieniec.bartek.calculator.BuildConfig;
+import pl.czerwieniec.bartek.calculator.R;
+import pl.marczak.calculator.calc.operations.Add;
+import pl.marczak.calculator.calc.Calculator;
+import pl.marczak.calculator.calc.operations.Divide;
+import pl.marczak.calculator.calc.operations.Multiply;
+import pl.marczak.calculator.calc.operations.Operation;
+import pl.marczak.calculator.calc.operations.Substract;
 
 public class MainActivity extends AppCompatActivity implements UIConnector {
 
     Calculator calculator;
 
     Vibrator vibrator;
+
+    @BindView(R.id.textView)
+    TextView title;
 
     @BindView(R.id.input_field)
     EditText input;
@@ -71,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements UIConnector {
 
         calculator = new Calculator(this);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        title.setText(BuildConfig.FLAVOR.toUpperCase().concat(" Calculator"));
     }
 
     String currentText() {

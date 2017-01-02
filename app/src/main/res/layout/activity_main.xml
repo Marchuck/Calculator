@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:fitsSystemWindows="true"
-    tools:context="pl.czerwieniec.bartek.calculator.MainActivity">
+    android:fitsSystemWindows="true" >
 
     <EditText
         android:id="@+id/input_field"
@@ -78,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="30sp"
-        android:text="KALKULATOR"
+
         android:textColor="@color/colorAccent"
         android:textSize="30sp"
         android:layout_alignParentTop="true"

@@ -22,7 +22,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "pl.czerwieniec.bartek.calculator"
+        applicationId "pl.marczak.calculator"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -37,6 +37,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors{
+        blue{
+            applicationIdSuffix ".blue"
+            versionNameSuffix "-blue"
+            buildConfigField("String","name","\"Blue\"")
+        }
+        red{
+            applicationIdSuffix ".red"
+            versionNameSuffix "-red"
+            buildConfigField("String","name","\"Red\"")
         }
     }
 }

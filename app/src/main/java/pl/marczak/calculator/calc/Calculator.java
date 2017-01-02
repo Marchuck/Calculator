@@ -1,11 +1,10 @@
-package pl.czerwieniec.bartek.calculator.calc;
+package pl.marczak.calculator.calc;
 
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
 
-import pl.czerwieniec.bartek.calculator.UIConnector;
-import pl.czerwieniec.bartek.calculator.calc.operations.Operation;
+import pl.marczak.calculator.UIConnector;
 
 
 /**
