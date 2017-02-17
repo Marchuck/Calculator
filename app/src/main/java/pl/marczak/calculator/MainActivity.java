@@ -17,23 +17,23 @@ import io.fabric.sdk.android.Fabric;
 import pl.czerwieniec.bartek.calculator.BuildConfig;
 import pl.czerwieniec.bartek.calculator.R;
 import pl.marczak.calculator.calc.operations.Add;
-import pl.marczak.calculator.calc.Calculator;
 import pl.marczak.calculator.calc.operations.Divide;
 import pl.marczak.calculator.calc.operations.Multiply;
 import pl.marczak.calculator.calc.operations.Operation;
 import pl.marczak.calculator.calc.operations.Substract;
 
-public class MainActivity extends AppCompatActivity implements UIConnector {
+public class MainActivity extends AppCompatActivity implements MainActivityView {
 
-    Calculator calculator;
+    MainActivityPresenter calculator;
+
+    Updatable inputWrapper;
 
     Vibrator vibrator;
 
+    int vibrationTime = 300;
+
     @BindView(R.id.textView)
     TextView title;
-
-    @BindView(R.id.input_field)
-    EditText input;
 
     @OnClick(R.id.divide)
     void onDivide() {
@@ -62,7 +62,10 @@ public class MainActivity extends AppCompatActivity implements UIConnector {
 
     @OnClick(R.id.result)
     void onResult() {
-        if (calculator != null) calculator.calculateValue(currentText());
+        if (calculator != null) {
+            String currentText = inputWrapper.getCurrentText();
+            calculator.calculateValue(currentText);
+        }
     }
 
     @Override
@@ -73,33 +76,39 @@ public class MainActivity extends AppCompatActivity implements UIConnector {
         Fabric.with(this, new Crashlytics());
         ButterKnife.bind(this);
 
-        calculator = new Calculator(this);
+        inputWrapper = new UpdatableEditTextWrapper(
+                (EditText) findViewById(R.id.input_field)
+        );
+
+        calculator = new MainActivityPresenter(this);
+
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         title.setText(BuildConfig.FLAVOR.toUpperCase().concat(" Calculator"));
     }
 
-    String currentText() {
-        return input.getText().toString();
-    }
-
     public void setCurrentOperation(Operation currentOperation) {
 
-        String currentInput = currentText();
+        String currentInput = inputWrapper.getCurrentText();
         String newInput = currentInput.concat(currentOperation.operationSymbol());
-        input.setText(newInput);
-        input.setSelection(input.getText().length());
+        inputWrapper.setNewText(newInput);
     }
 
     @Override
     public void showError(String error) {
         Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
-        vibrator.vibrate(300);
+        vibrator.vibrate(vibrationTime);
     }
 
     @Override
     public void showResult(String result) {
-        input.setText(result);
-        input.setSelection(result.length());
+        inputWrapper.setNewText(result);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        calculator.destroy();
+        calculator = null;
     }
 }

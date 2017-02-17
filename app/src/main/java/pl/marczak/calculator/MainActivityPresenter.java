@@ -1,28 +1,34 @@
-package pl.marczak.calculator.calc;
+package pl.marczak.calculator;
+
+import android.support.annotation.Nullable;
 
 import com.udojava.evalex.Expression;
 
 import java.math.BigDecimal;
 
-import pl.marczak.calculator.UIConnector;
+import pl.marczak.calculator.MainActivityView;
 
 
 /**
- * Project "Calculator"
+ * Project "MainActivityPresenter"
  * <p>
  * Created by Lukasz Marczak
  * on 16.11.2016.
  */
 
-public class Calculator {
+public class MainActivityPresenter {
 
-    final UIConnector connector;
+    @Nullable
+    MainActivityView connector;
 
-    public Calculator(UIConnector connector) {
+    int precision = 4;
+
+    public MainActivityPresenter(@Nullable MainActivityView connector) {
         this.connector = connector;
     }
 
     public void calculateValue(String s) {
+        if (connector == null) return;
         if (s.isEmpty()) {
             connector.showError("Podaj wyrażenie do obliczenia!");
             return;
@@ -33,8 +39,9 @@ public class Calculator {
         BigDecimal wynik = null;
         try {
             wynik = expression.eval();
-            expression.setPrecision(4);
+            expression.setPrecision(precision);
         } catch (Exception x) {
+
             connector.showError(x.getMessage());
         } finally {
             if (wynik != null) {
@@ -44,6 +51,11 @@ public class Calculator {
     }
 
     public void clear() {
+        if (connector == null) return;
         connector.showResult("");
+    }
+
+    public void destroy() {
+        connector = null;
     }
 }
